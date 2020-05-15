@@ -26,3 +26,15 @@ def zamanhesapla(eski, yeni):
         upksaat = uptsaat % 24
         return "{} gün, {} saat, {} dakika, {} saniye".format(uptgun, upksaat, upkdakika, upksaniye)
 
+
+def idbolucu(metin):
+    idsonhal = "".join("".join(metin.split("<@")).split(">"))
+    if idsonhal.startswith("!"):
+        idsonhal = "".join(idsonhal.split("!"))
+    return int(idsonhal)
+
+
+mesajlara_karsilik = {
+    "sa": "as",
+    "deneme": ":white_check_mark:"
+}

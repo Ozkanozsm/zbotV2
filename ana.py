@@ -17,16 +17,18 @@ async def on_ready():
 @client.event
 async def on_message(message):
     asilmsj = message.content
-    # asilmsj, mesajın asıl hali
-    yollayan = message.author.name
-    print(yollayan + ": " + asilmsj)
-    # resim falan atıldığında resim atıldı yazdır
-    if message.author == client.user:
+    # asilmsj, mesajın asıl hali; yollayan, mesajauthor
+    yollayan = message.author
+    yollayan_adi = yollayan.name
+    print(yollayan_adi + ": " + asilmsj)
+    if yollayan == client.user:
         return
-    if asilmsj.startswith(prefix):
+    elif asilmsj in fonklar.mesajlara_karsilik:
+        print(fonklar.mesajlara_karsilik[asilmsj])
+    elif asilmsj.startswith(prefix):
+        ylnck = "wrong"
         icerik = fonklar.mesajiayir(asilmsj)
         ilki = icerik[0]
-        print(type(icerik))
         # icerik, tum mesajların list hâli; ilki, ana komut
         if ilki == "açılış":
             print(aciliszamani.strftime("%d.%m.%Y %H:%M:%S"))
@@ -34,6 +36,14 @@ async def on_message(message):
             suankizaman = datetime.datetime.now()
             fark = fonklar.zamanhesapla(aciliszamani, suankizaman)
             print(fark)
+        elif ilki == "ikon":
+            ikon = message.guild.icon_url
+            print(ikon)
+        elif ilki == "avatar":
+            if len(icerik) == 1:
+                print(yollayan.avatar_url)
+            if len(icerik) == 2:
+                print(message.mentions[0].avatar_url)
         elif ilki == "çık":
             print("çıktım")
             await client.logout()
